@@ -246,6 +246,8 @@
             overflow: hidden;
             background: #f0f0f0;
             flex-shrink: 0;
+            position: relative;
+            cursor: zoom-in;
         }
 
         .product-image {
@@ -258,6 +260,90 @@
 
         .product-card:hover .product-image {
             transform: scale(1.05);
+        }
+
+        /* Gallery & Zoom Modal */
+        .thumbnail-gallery {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+            padding: 0 2rem;
+            justify-content: center;
+        }
+
+        .thumbnail {
+            width: 50px;
+            height: 50px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .thumbnail:hover {
+            border-color: var(--primary);
+        }
+
+        .thumbnail.active {
+            border-color: var(--primary);
+            box-shadow: 0 0 8px rgba(211, 47, 47, 0.3);
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Zoom Modal */
+        .zoom-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .zoom-modal.active {
+            display: flex;
+        }
+
+        .zoom-container {
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow: auto;
+            position: relative;
+        }
+
+        .zoom-image {
+            max-width: 100%;
+            max-height: 100%;
+            cursor: zoom-out;
+        }
+
+        .zoom-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: white;
+            color: #000;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            z-index: 2001;
+        }
+
+        .zoom-close:hover {
+            background: #f0f0f0;
         }
 
         .product-card-content {
@@ -643,8 +729,22 @@
             <h2 class="section-title">Our Products</h2>
             <div class="products-grid">
                 <div class="product-card">
-                    <div class="product-image-container">
+                    <div class="product-image-container" onclick="openZoom(this)">
                         <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/c002faa5-f31f-4404-9a35-a7629b1ca75f" alt="100% Virgin HDPE Agro Shade Nets - 50/75/90% Shade Factors Supplier in Kochi" class="product-image">
+                    </div>
+                    <div class="thumbnail-gallery">
+                        <div class="thumbnail active" onclick="switchImage(event)">
+                            <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/c002faa5-f31f-4404-9a35-a7629b1ca75f" alt="Agro Nets angle 1">
+                        </div>
+                        <div class="thumbnail" onclick="switchImage(event)">
+                            <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/cfb1add6-fbc8-4e89-8741-1e8db858c64d" alt="Agro Nets angle 2">
+                        </div>
+                        <div class="thumbnail" onclick="switchImage(event)">
+                            <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/84a3897f-aebf-4d5f-9153-7939e296616d" alt="Agro Nets angle 3">
+                        </div>
+                        <div class="thumbnail" onclick="switchImage(event)">
+                            <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/41be371f-cc3f-4533-84da-e97bc653e696" alt="Agro Nets angle 4">
+                        </div>
                     </div>
                     <div class="product-card-content">
                         <h3>Agro Shade Nets</h3>
@@ -657,8 +757,22 @@
                 </div>
 
                 <div class="product-card">
-                    <div class="product-image-container">
+                    <div class="product-image-container" onclick="openZoom(this)">
                         <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/80aaf0c4-ac20-42ea-8f7f-1ad7c0e3146a" alt="HDPE Tarpaulin Woven Fabric with LDPE Lamination - All-Weather Waterproof Cover Supplier" class="product-image">
+                    </div>
+                    <div class="thumbnail-gallery">
+                        <div class="thumbnail active" onclick="switchImage(event)">
+                            <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/80aaf0c4-ac20-42ea-8f7f-1ad7c0e3146a" alt="HDPE angle 1">
+                        </div>
+                        <div class="thumbnail" onclick="switchImage(event)">
+                            <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/201f6cfc-3d50-433a-a824-662b522618a8" alt="HDPE angle 2">
+                        </div>
+                        <div class="thumbnail" onclick="switchImage(event)">
+                            <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/e3e73681-3dd6-44f6-8889-4c10e71cede2" alt="HDPE angle 3">
+                        </div>
+                        <div class="thumbnail" onclick="switchImage(event)">
+                            <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/4092e8fb-5d70-48a9-8b73-ab1d89c358de" alt="HDPE angle 4">
+                        </div>
                     </div>
                     <div class="product-card-content">
                         <h3>HDPE Tarpaulins</h3>
@@ -671,8 +785,19 @@
                 </div>
 
                 <div class="product-card">
-                    <div class="product-image-container">
+                    <div class="product-image-container" onclick="openZoom(this)">
                         <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/6f794ae4-0269-492b-9085-a26319ad4d23" alt="Canvas Tarpaulin 100% Cotton Duck Fabric - Heavy-Duty Industrial Cover Supplier" class="product-image">
+                    </div>
+                    <div class="thumbnail-gallery">
+                        <div class="thumbnail active" onclick="switchImage(event)">
+                            <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/6f794ae4-0269-492b-9085-a26319ad4d23" alt="Canvas angle 1">
+                        </div>
+                        <div class="thumbnail" onclick="switchImage(event)">
+                            <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/fb803e67-601f-473d-a809-e7258fed463a" alt="Canvas angle 2">
+                        </div>
+                        <div class="thumbnail" onclick="switchImage(event)">
+                            <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/e28d83ab-7311-4eca-bb1d-78149b58d605" alt="Canvas angle 3">
+                        </div>
                     </div>
                     <div class="product-card-content">
                         <h3>Canvas Tarpaulins</h3>
@@ -685,8 +810,19 @@
                 </div>
 
                 <div class="product-card">
-                    <div class="product-image-container">
+                    <div class="product-image-container" onclick="openZoom(this)">
                         <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/e77c2d07-b5a5-4f1b-8155-102403f73543" alt="Cross-Lamination Multi-Layer Tarpaulin - High-Strength Tear-Resistant Protection Supplier" class="product-image">
+                    </div>
+                    <div class="thumbnail-gallery">
+                        <div class="thumbnail active" onclick="switchImage(event)">
+                            <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/e77c2d07-b5a5-4f1b-8155-102403f73543" alt="Cross-Lam angle 1">
+                        </div>
+                        <div class="thumbnail" onclick="switchImage(event)">
+                            <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/651159a5-ef77-4c0e-aca4-c46fa765e5b3" alt="Cross-Lam angle 2">
+                        </div>
+                        <div class="thumbnail" onclick="switchImage(event)">
+                            <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/68aad659-fefa-43ec-ba08-d6ccf4b7608e" alt="Cross-Lam angle 3">
+                        </div>
                     </div>
                     <div class="product-card-content">
                         <h3>Cross-Lamination Tarpaulins</h3>
@@ -699,8 +835,22 @@
                 </div>
 
                 <div class="product-card">
-                    <div class="product-image-container">
+                    <div class="product-image-container" onclick="openZoom(this)">
                         <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/e143f758-a1ea-4de8-a8a4-d4385020d731" alt="3-Strand PP Polypropylene Rope - Marine, Agriculture, Construction Supplier Kochi" class="product-image">
+                    </div>
+                    <div class="thumbnail-gallery">
+                        <div class="thumbnail active" onclick="switchImage(event)">
+                            <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/e143f758-a1ea-4de8-a8a4-d4385020d731" alt="PP Ropes angle 1">
+                        </div>
+                        <div class="thumbnail" onclick="switchImage(event)">
+                            <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/633df212-e704-4cd1-96a7-4c59efe6f290" alt="PP Ropes angle 2">
+                        </div>
+                        <div class="thumbnail" onclick="switchImage(event)">
+                            <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/7a4e4df6-369f-4353-99de-432558e779cc" alt="PP Ropes angle 3">
+                        </div>
+                        <div class="thumbnail" onclick="switchImage(event)">
+                            <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/65e156cb-c3e2-46dc-95ee-5e7b12c391a7" alt="PP Ropes angle 4">
+                        </div>
                     </div>
                     <div class="product-card-content">
                         <h3>PP Ropes (3-Strand)</h3>
@@ -874,7 +1024,48 @@
         </div>
     </footer>
 
+    <div id="zoomModal" class="zoom-modal">
+        <button class="zoom-close" onclick="closeZoom()">✕ Close</button>
+        <div class="zoom-container">
+            <img id="zoomImage" src="" alt="Zoomed product image" class="zoom-image" onclick="closeZoom()">
+        </div>
+    </div>
+
     <script>
+        // Gallery & Zoom Functions
+        function switchImage(event) {
+            event.stopPropagation();
+            const clicked = event.currentTarget;
+            const gallery = clicked.parentElement;
+            const container = gallery.previousElementSibling;
+            const mainImage = container.querySelector('.product-image');
+            const newSrc = clicked.querySelector('img').src;
+
+            mainImage.src = newSrc;
+
+            gallery.querySelectorAll('.thumbnail').forEach(thumb => thumb.classList.remove('active'));
+            clicked.classList.add('active');
+        }
+
+        function openZoom(container) {
+            const modal = document.getElementById('zoomModal');
+            const zoomImage = document.getElementById('zoomImage');
+            const mainImage = container.querySelector('.product-image');
+            zoomImage.src = mainImage.src;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeZoom() {
+            const modal = document.getElementById('zoomModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeZoom();
+        });
+
         // Simple Form Handler - Show Success Message
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
