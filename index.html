@@ -700,7 +700,7 @@
 
                 <div class="product-card">
                     <div class="product-image-container">
-                        <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/e143f758-a1ec-4de8-a8a4-d4385020d731" alt="3-Strand PP Polypropylene Rope - Marine, Agriculture, Construction Supplier Kochi" class="product-image">
+                        <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/e143f758-a1ea-4de8-a8a4-d4385020d731" alt="3-Strand PP Polypropylene Rope - Marine, Agriculture, Construction Supplier Kochi" class="product-image">
                     </div>
                     <div class="product-card-content">
                         <h3>PP Ropes (3-Strand)</h3>
@@ -875,26 +875,18 @@
     </footer>
 
     <script>
-        // Form Handler - Send to WhatsApp + Show Success Message
+        // Simple Form Handler - Show Success Message
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
             const name = document.getElementById('name').value;
             const phone = document.getElementById('phone').value;
             const product = document.getElementById('product').value;
-            const quantity = document.getElementById('quantity').value;
-            const message = document.getElementById('message').value;
-
-            // Create WhatsApp message
-            const whatsappMessage = `📝 NEW ENQUIRY FROM WEBSITE\n\n👤 Name: ${name}\n📞 Phone: ${phone}\n📦 Product: ${product}\n📊 Quantity: ${quantity}\n💬 Message: ${message}`;
-
-            // Send to WhatsApp (opens WhatsApp immediately)
-            window.open(`https://wa.me/918089822421?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
 
             // Show success message
             const alert = document.getElementById('formAlert');
             alert.classList.add('alert-success', 'show');
-            alert.innerHTML = '✅ Thank you! Enquiry sent to WhatsApp. We will contact you shortly on ' + phone;
+            alert.innerHTML = '✅ Thank you! Your enquiry has been sent. We will contact you shortly on ' + phone;
 
             // Reset form
             document.getElementById('contactForm').reset();
